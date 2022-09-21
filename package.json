@@ -1,0 +1,30 @@
+{
+    "private": true,
+    "name": "study-buddy-web-reloaded",
+    "version": "0.1.0",
+    "license": "MIT",
+    "scripts": {
+        "build": "preact build",
+        "serve": "sirv build --port 8080 --cors --single",
+        "dev": "preact watch --https"
+    },
+    "devDependencies": {
+        "preact-cli": "^3.0.0",
+        "sass": "^1.54.9",
+        "sass-loader": "^10.3.1",
+        "sirv-cli": "1.0.3"
+    },
+    "dependencies": {
+        "@greatsumini/react-facebook-login": "^3.2.1",
+        "preact": "^10.11.0",
+        "preact-render-to-string": "^5.2.2",
+        "preact-router": "^4.1.0",
+        "zustand": "^4.1.1"
+    },
+    "alias": {
+        "react": "preact/compat",
+        "react-dom/test-utils": "preact/test-utils",
+        "react-dom": "preact/compat",
+        "react/jsx-runtime": "preact/jsx-runtime"
+    }
+}
