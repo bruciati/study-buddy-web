@@ -1,7 +1,7 @@
 import create from 'zustand'
 import { persist } from 'zustand/middleware'
 
-const initState = { accessToken: null, refreshToken: null }
+const initState = { accessToken: null, accessTokenTtl: 0, refreshToken: null, refreshTokenTtl: 0 }
 
 const useSessionStore = create(
     persist(
@@ -9,14 +9,14 @@ const useSessionStore = create(
             // Store state
             ...initState,
             // Functions
-            login: (accessToken, refreshToken) => set({ accessToken, refreshToken }),
-            logout: () => set(initState),
+            saveSession: set,
+            resetSession: () => set(initState),
         }),
         {
             name: 'study-buddy',
             getStorage: () => sessionStorage, // (optional) by default, 'localStorage' is used
             serialize: (state) => btoa(JSON.stringify(state)),
-            deserialize: (source) => JSON.parse(atob(source))
+            deserialize: (source) => JSON.parse(atob(source)),
         }
     )
 )

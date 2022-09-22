@@ -16,6 +16,10 @@
     },
     "dependencies": {
         "@greatsumini/react-facebook-login": "^3.2.1",
+        "@urql/exchange-auth": "^1.0.0",
+        "@urql/preact": "^3.0.2",
+        "bootstrap": "^5.2.1",
+        "graphql": "^16.6.0",
         "preact": "^10.11.0",
         "preact-render-to-string": "^5.2.2",
         "preact-router": "^4.1.0",

@@ -1,9 +1,35 @@
+import { useEffect, useState } from 'preact/hooks'
+import useAppStore from '../../stores/application'
 import style from './style.scss'
 
-const Notifies = () => (
-    <div className={style.notifies}>
+const Notify = ({ type, text }) => {
+    const [visible, setVisible] = useState(true)
 
-    </div>
-)
+    useEffect(() => {
+        const timeout = setTimeout(() => setVisible(false), 2000)
+        return () => clearTimeout(timeout)
+    }, [])
+
+    return (
+        visible && (
+            <div className={`alert alert-${type} alert-dismissible ${style.notify} fade show`} role="alert">
+                <span>{text}</span>
+                <button type="button" className="btn-close" aria-label="Close" onClick={() => setVisible(false)} />
+            </div>
+        )
+    )
+}
+
+const Notifies = () => {
+    const notifyList = useAppStore((state) => state.notifyList)
+
+    return (
+        <div className={style.notifies}>
+            {notifyList.map((props, idx) => (
+                <Notify key={idx} {...props} />
+            ))}
+        </div>
+    )
+}
 
 export default Notifies
