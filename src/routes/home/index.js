@@ -8,16 +8,6 @@ const Home = () => {
     const [showMine, setShowMine] = useState(false)
     const [isModalShown, showModal] = useState(false)
 
-    const handleLogOut = () => {
-        doLogout()
-        route('/login', true)
-    }
-
-    const [response] = useQuery({ query: 'query { me { id firstName } }' })
-    const { data } = response
-
-    useEffect(() => console.log(response), [response])
-
     return (
         <div class="flex-grow-1 container px-lg-4 mt-4">
             <div class="d-flex flex-row border-bottom align-items-center py-2">
