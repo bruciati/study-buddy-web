@@ -1,13 +1,12 @@
-import { useQuery } from '@urql/preact'
-import { route } from 'preact-router'
-import { useEffect } from 'preact/hooks'
-import { doLogout } from '../../controllers/auth'
-import useSessionStore from '../../stores/session'
-import style from './style.scss'
+import { useState } from 'preact/hooks'
+
+import AllGroupList from './components/allgrouplist'
+import MyGroupList from '../../components/mygrouplist'
+import Modal from './components/modal'
 
 const Home = () => {
-    const accessToken = useSessionStore((state) => state.accessToken)
-    const refreshToken = useSessionStore((state) => state.refreshToken)
+    const [showMine, setShowMine] = useState(false)
+    const [isModalShown, showModal] = useState(false)
 
     const handleLogOut = () => {
         doLogout()
@@ -20,20 +19,43 @@ const Home = () => {
     useEffect(() => console.log(response), [response])
 
     return (
-        <>
-            <div class={style.home}>
-                <span>accessToken: {accessToken}</span>
-                <br />
-                <span>refreshToken: {refreshToken}</span>
-                <br />
+        <div class="flex-grow-1 container px-lg-4 mt-4">
+            <div class="d-flex flex-row border-bottom align-items-center py-2">
+                <h1 class="m-0 me-auto">{showMine ? 'My' : 'All'} Groups</h1>
+                <button type="button" class="btn btn-primary" onClick={() => showModal(true)}>
+                    <i class="fa-solid fa-sharp fa-plus" />
+                </button>
+                <div class="btn-group d-flex ms-2" role="group">
+                    <input
+                        id="show-all"
+                        name="btnradio"
+                        class="btn-check"
+                        type="radio"
+                        autocomplete="off"
+                        defaultChecked
+                        onChange={() => setShowMine(false)}
+                    />
+                    <label class="btn btn-outline-secondary" for="show-all">
+                        <i class="fa-solid fa-bars" />
+                    </label>
+                    <input
+                        id="show-my"
+                        name="btnradio"
+                        class="btn-check"
+                        type="radio"
+                        autocomplete="off"
+                        onChange={() => setShowMine(true)}
+                    />
+                    <label class="btn btn-outline-secondary" for="show-my">
+                        <i class="fa-solid fa-user" />
+                    </label>
+                </div>
             </div>
-            {data && (
-                <span>
-                    I'm {data.me.firstName} and my ID is {data.me.id}
-                </span>
-            )}
-            <button onClick={handleLogOut}>LogOut</button>
-        </>
+            <div class="row py-3 mx-lg-1">
+                {(showMine && <MyGroupList />) || <AllGroupList />}
+            </div>
+            {isModalShown && <Modal showModal={showModal} />}
+        </div>
     )
 }
 

@@ -1,0 +1,35 @@
+.placeholder {
+    background-image: url(/assets/img/sample.jpg);
+    background-color: #cccccc;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.loginhero {
+    height: auto;
+    max-width: 250px;
+}
+
+.divider {
+    --text-divider-gap: 1rem;
+
+    display: flex;
+    align-items: center;
+
+    &::before,
+    &::after {
+        content: '';
+        height: 1px;
+        background-color: silver;
+        flex-grow: 1;
+    }
+
+    &::before {
+        margin-right: var(--text-divider-gap);
+    }
+
+    &::after {
+        margin-left: var(--text-divider-gap);
+    }
+}

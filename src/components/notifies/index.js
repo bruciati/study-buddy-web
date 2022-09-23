@@ -12,9 +12,9 @@ const Notify = ({ type, text }) => {
 
     return (
         visible && (
-            <div className={`alert alert-${type} alert-dismissible ${style.notify} fade show`} role="alert">
+            <div class={`alert alert-${type} alert-dismissible ${style.notify} fade show`} role="alert">
                 <span>{text}</span>
-                <button type="button" className="btn-close" aria-label="Close" onClick={() => setVisible(false)} />
+                <button type="button" class="btn-close" aria-label="Close" onClick={() => setVisible(false)} />
             </div>
         )
     )
@@ -24,7 +24,7 @@ const Notifies = () => {
     const notifyList = useAppStore((state) => state.notifyList)
 
     return (
-        <div className={style.notifies}>
+        <div class={style.notifies}>
             {notifyList.map((props, idx) => (
                 <Notify key={idx} {...props} />
             ))}

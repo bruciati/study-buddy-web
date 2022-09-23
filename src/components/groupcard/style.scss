@@ -1,0 +1,33 @@
+.img {
+    opacity: 0.4;
+    height: 100%;
+    z-index: 0;
+
+    &back {
+        position: relative;
+        background-color: #000;
+        height: 10rem;
+    }
+
+    &text {
+        position: absolute;
+        top: 50%;
+
+        width: 100%;
+        text-align: center;
+        user-select: none;
+
+        -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+
+        z-index: 1;
+    }
+}
+
+.textclamp {
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    overflow: hidden;
+}

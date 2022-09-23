@@ -1,2 +1,28 @@
-.header {
+.brand {
+    font-family: 'Zen Loop', cursive;
+    font-size: 2rem !important;
+    font-weight: 800;
+
+    z-index: 1;
+}
+
+.motto {
+    position: absolute;
+    left: 0;
+    right: 0;
+
+    font-family: 'Oleo Script Swash Caps', cursive;
+    font-size: 1.2rem;
+
+    text-align: center;
+    user-select: none;
+    z-index: 0;
+
+    @media (max-width: 768px) {
+        display: none;
+    }
+}
+
+.links {
+    z-index: 1;
 }

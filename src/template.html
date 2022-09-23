@@ -2,23 +2,19 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title><% preact.title %></title>
         <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <meta name="mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <title><% preact.title %></title>
         <link rel="apple-touch-icon" href="<%= htmlWebpackPlugin.files.publicPath %>assets/icons/apple-touch-icon.png" />
-        <style>
-            html,
-            body {
-                overflow-x: hidden;
-                margin: 0;
-            }
-            body {
-                min-height: 100vh;
-                display: flex;
-                flex-direction: column;
-            }
-        </style>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oleo+Script+Swash+Caps&family=Zen+Loop&display=swap" /> 
+
+        <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/fontawesome.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/solid.min.css" />
+
+        <style>html,body{overflow-x:hidden;margin:0}#app{min-height:100vh}#app{display:flex;flex-direction:column}</style>
         <% preact.headEnd %>
     </head>
     <body>

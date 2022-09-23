@@ -6,7 +6,7 @@ import { SERVER_BASEURL } from '../constants'
 
 // Applies an auth state to each request
 const addAuthToOperation = ({ authState, operation }) => {
-    if (authState == null || authState.token == null) {
+    if (!authState || !authState.token) {
         return operation
     }
 
@@ -21,7 +21,7 @@ const addAuthToOperation = ({ authState, operation }) => {
 }
 
 // Triggers the logic in `getAuth` without the need to send a request.
-const willAuthError = ({ authState }) => authState == null || authState.token == null
+const willAuthError = ({ authState }) => !authState || !authState.token
 
 // Graphql Client instance
 const GraphQlClient = createClient({

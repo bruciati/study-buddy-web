@@ -1,0 +1,40 @@
+@-webkit-keyframes ellipsis {
+    0% {
+        content: '\00a0\00a0\00a0';
+    }
+    30% {
+        content: '.\00a0\00a0';
+    }
+    60% {
+        content: '..\00a0';
+    }
+    90% {
+        content: '...';
+    }
+}
+
+@keyframes ellipsis {
+    0% {
+        content: '\00a0\00a0\00a0';
+    }
+    30% {
+        content: '.\00a0\00a0';
+    }
+    60% {
+        content: '..\00a0';
+    }
+    90% {
+        content: '...';
+    }
+}
+
+.loading {
+    margin-left: 0.5rem;
+
+    &:after {
+        content: '\00a0\00a0\00a0';
+
+        -webkit-animation: ellipsis 1s infinite;
+        animation: ellipsis 1s infinite;
+    }
+}

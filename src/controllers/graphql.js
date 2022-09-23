@@ -6,13 +6,13 @@ import { doRefresh, doLogout } from './auth'
 //
 export const getAuth = async ({ authState }) => {
     // First access token warmup
-    if (authState == null) {
+    if (!authState) {
         const { accessToken } = useSessionStore.getState()
         if (accessToken) return { token: accessToken }
     }
 
     // Refresh access token
-    else if (authState.token == null) {
+    else if (!authState.token) {
         const { refreshToken } = useSessionStore.getState()
         if (refreshToken) {
             console.log('Refreshing the access token...')
@@ -33,11 +33,11 @@ export const getAuth = async ({ authState }) => {
 
 //
 export const didAuthError = ({ authState, error }) => {
-    if (authState == null) {
+    if (!authState) {
         return true
     }
 
-    if (error.networkError != null && error.networkError.message.toLowerCase() === 'unauthorized') {
+    if (error.networkError && error.networkError.message.toLowerCase() === 'unauthorized') {
         authState.token = null
         return true
     }
