@@ -1,10 +1,11 @@
 import { useState } from 'preact/hooks'
 import { useMutation } from '@urql/preact'
 import useAppStore from '../../../../stores/application'
+import { handleGraphQlError } from '../../../../utils'
 
 import style from './style.scss'
 
-const { notifyError, notifySuccess } = useAppStore.getState()
+const { notifySuccess } = useAppStore.getState()
 
 const INSERT_GROUP = 'mutation($input: GroupInput!) { saveGroup(input: $input) { id } }'
 
@@ -24,13 +25,7 @@ const Modal = ({ hideModal }) => {
                 notifySuccess(`The ${title} group was successfully created.`)
                 hideModal()
             } else if (error) {
-                if (error.networkError) {
-                    notifyError(error.networkError.message)
-                }
-
-                if (error.graphQLErrors) {
-                    error.graphQLErrors.forEach((err) => notifyError(err.message))
-                }
+                handleGraphQlError(error)
             }
         })
     }

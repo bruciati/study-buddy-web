@@ -14,18 +14,7 @@ const GROUP_ID =
 
 const Group = ({ id }) => {
     const [{ fetching, data, error }] = useQuery({ query: GROUP_ID, variables: { id } })
-
-    useEffect(() => {
-        if (error) {
-            if (error.networkError) {
-                notifyError(error.networkError.message)
-            }
-
-            if (error.graphQLErrors) {
-                error.graphQLErrors.forEach((err) => notifyError(err.message))
-            }
-        }
-    }, [error])
+    useEffect(() => error && handleGraphQlError(error), [error])
 
     if (!fetching && data) {
         const { title, areaOfInterest, description, owner, members, meetings } = data.groupById
