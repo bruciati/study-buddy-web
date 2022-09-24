@@ -20,7 +20,7 @@ const Modal = ({ hideModal }) => {
     const handleCreateGroup = (e) => {
         e.preventDefault()
         insertGroup({ input: { title, description, areaOfInterest } }).then(({ data, error }) => {
-            if (data) {
+            if (data.saveGroup) {
                 notifySuccess(`The ${title} group was successfully created.`)
                 hideModal()
             }
