@@ -1,6 +1,7 @@
 import { useEffect, useMemo } from 'preact/hooks'
 import { useQuery } from '@urql/preact'
 
+import { handleGraphQlError } from '../../utils'
 import LoadingSpinner from '../../components/loading'
 import MyGroupList from '../../components/mygrouplist'
 
@@ -10,18 +11,7 @@ const ME = 'query { me { firstName lastName } }'
 
 const Profile = () => {
     const [{ fetching, data, error }] = useQuery({ query: ME })
-
-    useEffect(() => {
-        if (error) {
-            if (error.networkError) {
-                notifyError(error.networkError.message)
-            }
-
-            if (error.graphQLErrors) {
-                error.graphQLErrors.forEach((err) => notifyError(err.message))
-            }
-        }
-    }, [error])
+    useEffect(() => error && handleGraphQlError(error), [error])
 
     if (!fetching && data) {
         const fullName = useMemo(() => 

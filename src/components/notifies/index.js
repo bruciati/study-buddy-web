@@ -1,24 +1,27 @@
+import { memo } from 'preact/compat'
 import { useEffect, useState } from 'preact/hooks'
 import useAppStore from '../../stores/application'
+
 import style from './style.scss'
 
-const Notify = ({ type, text }) => {
+const Notify = memo(({ type, text }) => {
     const [visible, setVisible] = useState(true)
+    const hideMe = () => setVisible(false)
 
     useEffect(() => {
-        const timeout = setTimeout(() => setVisible(false), 2000)
+        const timeout = setTimeout(hideMe, 2000)
         return () => clearTimeout(timeout)
     }, [])
 
-    return (
-        visible && (
+    if (visible) {
+        return (
             <div class={`alert alert-${type} alert-dismissible ${style.notify} fade show`} role="alert">
                 <span>{text}</span>
-                <button type="button" class="btn-close" aria-label="Close" onClick={() => setVisible(false)} />
+                <button type="button" class="btn-close" aria-label="Close" onClick={hideMe} />
             </div>
         )
-    )
-}
+    }
+})
 
 const Notifies = () => {
     const notifyList = useAppStore((state) => state.notifyList)
