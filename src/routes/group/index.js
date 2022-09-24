@@ -3,8 +3,9 @@ import { useQuery } from '@urql/preact'
 
 import Description from './components/description'
 import MembersList from './components/memberlist'
-import MeetingsTable from './components/meetingstable'
+import Meetings from './components/meetings'
 import LoadingSpinner from '../../components/loading'
+import Modal from './components/modal'
 
 
 const GROUP_ID =
@@ -31,12 +32,13 @@ const Group = ({ id }) => {
                             <div class="card-body">
                                 <Description value={description} />
                                 <MembersList ownerId={owner.id} members={members} />
-                                <MeetingsTable meetings={meetings} />
+                                <Meetings meetings={meetings} showModal={() => setModal(true)} />
                             </div>
                         </div>
                     </div>
                     <div class="col-2 d-none d-lg-block" />
                 </div>
+                {modal && <Modal groupId={id} hideModal={() => setModal(false)} />}
             </div>
         )
     }
