@@ -1,21 +1,22 @@
-import { useEffect } from 'preact/hooks'
+import { useState } from 'preact/hooks'
 import { useQuery } from '@urql/preact'
 
-import { handleGraphQlError } from '../../utils'
 import Description from './components/description'
 import MembersList from './components/memberlist'
-import MeetingsTable from './components/meetingstable'
+import Meetings from './components/meetings'
 import LoadingSpinner from '../../components/loading'
+import Modal from './components/modal'
 
 
 const GROUP_ID =
     'query($id: ID!) { groupById(id: $id) { title, areaOfInterest, description, owner { id }, members { id, firstName, lastName }, meetings { id, name, dateTime, location, type } } }'
 
 const Group = ({ id }) => {
-    const [{ fetching, data, error }] = useQuery({ query: GROUP_ID, variables: { id } })
-    useEffect(() => error && handleGraphQlError(error), [error])
+    const [modal, setModal] = useState(false)
 
-    if (!fetching && data) {
+    const [{ data }] = useQuery({ query: GROUP_ID, variables: { id } })
+
+    if (data) {
         const { title, areaOfInterest, description, owner, members, meetings } = data.groupById
 
         return (
@@ -31,12 +32,13 @@ const Group = ({ id }) => {
                             <div class="card-body">
                                 <Description value={description} />
                                 <MembersList ownerId={owner.id} members={members} />
-                                <MeetingsTable meetings={meetings} />
+                                <Meetings meetings={meetings} showModal={() => setModal(true)} />
                             </div>
                         </div>
                     </div>
                     <div class="col-2 d-none d-lg-block" />
                 </div>
+                {modal && <Modal groupId={id} hideModal={() => setModal(false)} />}
             </div>
         )
     }

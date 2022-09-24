@@ -43,7 +43,7 @@ const Home = () => {
             </div>
 
             <div class="row py-3 mx-lg-1">
-                {(mine && <MyGroupList />) || <AllGroupList />}
+                {(mine && <MyGroupList modal={!modal} />) || <AllGroupList modal={!modal} />}
             </div>
 
             {modal && <Modal hideModal={() => setModal(false)} />}

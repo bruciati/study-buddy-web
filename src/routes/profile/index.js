@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'preact/hooks'
+import { useMemo } from 'preact/hooks'
 import { useQuery } from '@urql/preact'
 
 import { handleGraphQlError } from '../../utils'
@@ -10,10 +10,9 @@ import style from './style.scss'
 const ME = 'query { me { firstName lastName } }'
 
 const Profile = () => {
-    const [{ fetching, data, error }] = useQuery({ query: ME })
-    useEffect(() => error && handleGraphQlError(error), [error])
+    const [{ data }] = useQuery({ query: ME })
 
-    if (!fetching && data) {
+    if (data) {
         const fullName = useMemo(() => 
             data.me.firstName + (data.me.lastName ? ` ${data.me.lastName}` : ''),
             [data]

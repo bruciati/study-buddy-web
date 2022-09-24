@@ -1,7 +1,7 @@
 import { memo } from 'preact/compat'
 
-const MemberItem = memo(({ isOwner, member }) => {
-    const fullName = member.firstName + (member.lastName ? ` ${member.lastName}` : '')
+const MemberItem = memo(({ isOwner, firstName, lastName }) => {
+    const fullName = firstName + (lastName ? ` ${lastName}` : '')
 
     return (
         <div class="col mb-2">
@@ -15,17 +15,22 @@ const MemberItem = memo(({ isOwner, member }) => {
 })
 
 const MembersList = ({ ownerId, members }) => (
-    <>
-        <h3 class="my-3">
+    <div class="mb-4">
+        <h3>
             <i class="fa-solid fa-user-group me-2" />
             Participants
         </h3>
         <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1">
-            {members.map(({ id, ...member }) => (
-                <MemberItem key={id} isOwner={ownerId === id} member={member} />
+            {members.map(({ id, firstName, lastName }) => (
+                <MemberItem
+                    key={id}
+                    isOwner={ownerId === id}
+                    firstName={firstName}
+                    lastName={lastName}
+                />
             ))}
         </div>
-    </>
+    </div>
 )
 
 export default MembersList

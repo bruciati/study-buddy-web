@@ -16,16 +16,14 @@ const Modal = ({ hideModal }) => {
     const [description, setDescription] = useState()
     const [areaOfInterest, setAreaOfInterest] = useState()
 
-    const handleSelectOpt = (e) => setAreaOfInterest(e.target.options[e.target.selectedIndex].text)
+    const handleSelect = (e) => setAreaOfInterest(e.target.options[e.target.selectedIndex].text)
 
     const handleCreateGroup = (e) => {
         e.preventDefault()
-        insertGroup({ input: { title, description, areaOfInterest } }).then(({ data, error }) => {
-            if (data) {
+        insertGroup({ input: { title, description, areaOfInterest } }).then(({ data }) => {
+            if (data.saveGroup) {
                 notifySuccess(`The ${title} group was successfully created.`)
                 hideModal()
-            } else if (error) {
-                handleGraphQlError(error)
             }
         })
     }
@@ -58,7 +56,7 @@ const Modal = ({ hideModal }) => {
                                 <label for="group-aoi" class="form-label">
                                     Area of interest
                                 </label>
-                                <select id="group-aoi" class="form-select" required onChange={handleSelectOpt}>
+                                <select id="group-aoi" class="form-select" required onChange={handleSelect}>
                                     <option selected>Miscellaneous</option>
                                     <option value="1">Architecture</option>
                                     <option value="2">Biology</option>
