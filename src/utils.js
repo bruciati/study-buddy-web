@@ -1,4 +1,4 @@
-import useAppStore from '../../../../stores/application'
+import useAppStore from './stores/application'
 
 const { notifyError } = useAppStore.getState()
 
