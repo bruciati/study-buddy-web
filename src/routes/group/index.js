@@ -2,9 +2,10 @@ import { useEffect } from 'preact/hooks'
 import { useQuery } from '@urql/preact'
 
 import useAppStore from '../../stores/application'
-import LoadingSpinner from '../../components/loading'
+import Description from './components/description'
 import MembersList from './components/memberlist'
 import MeetingsTable from './components/meetingstable'
+import LoadingSpinner from '../../components/loading'
 
 const { notifyError } = useAppStore.getState()
 
@@ -40,21 +41,9 @@ const Group = ({ id }) => {
                                 <h3 class="display-6 text-primary">{areaOfInterest}</h3>
                             </div>
                             <div class="card-body">
-                                <div>
-                                    {description && (
-                                        <>
-                                            <h3>
-                                                <i class="fa-solid fa-pen me-2" /> Description
-                                            </h3>
-                                            <p class="text-break fs-5" style={{ textAlign: 'justify' }}>
-                                                {description}
-                                            </p>
-                                        </>
-                                    )}
-
-                                    <MembersList ownerId={owner.id} members={members} />
-                                    <MeetingsTable meetings={meetings} />
-                                </div>
+                                <Description value={description} />
+                                <MembersList ownerId={owner.id} members={members} />
+                                <MeetingsTable meetings={meetings} />
                             </div>
                         </div>
                     </div>
