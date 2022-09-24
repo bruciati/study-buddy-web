@@ -6,9 +6,9 @@ import LoadingSpinner from '../../../components/loading'
 const GROUPS = 'query { groups { id title areaOfInterest description owner { firstName lastName } members { id } } }'
 
 const AllGroupList = () => {
-    const [{ fetching, data }] = useQuery({ query: GROUPS })
+    const [{ data }] = useQuery({ query: GROUPS })
 
-    if (!fetching && data) {
+    if (data) {
         return data.groups.map(({ id, ...group }) => <GroupCard id={id} key={id} {...group} />)
     }
 

@@ -13,9 +13,9 @@ const GROUP_ID =
 const Group = ({ id }) => {
     const [modal, setModal] = useState(false)
 
-    const [{ fetching, data }] = useQuery({ query: GROUP_ID, variables: { id } })
+    const [{ data }] = useQuery({ query: GROUP_ID, variables: { id } })
 
-    if (!fetching && data) {
+    if (data) {
         const { title, areaOfInterest, description, owner, members, meetings } = data.groupById
 
         return (

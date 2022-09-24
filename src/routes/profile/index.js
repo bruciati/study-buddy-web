@@ -9,9 +9,9 @@ import style from './style.scss'
 const ME = 'query { me { firstName lastName } }'
 
 const Profile = () => {
-    const [{ fetching, data }] = useQuery({ query: ME })
+    const [{ data }] = useQuery({ query: ME })
 
-    if (!fetching && data) {
+    if (data) {
         const fullName = useMemo(() => 
             data.me.firstName + (data.me.lastName ? ` ${data.me.lastName}` : ''),
             [data]
