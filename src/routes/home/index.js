@@ -41,9 +41,11 @@ const Home = () => {
                     </label>
                 </div>
             </div>
+            
             <div class="row py-3 mx-lg-1">
                 {(showMine && <MyGroupList />) || <AllGroupList />}
             </div>
+
             {isModalShown && <Modal showModal={showModal} />}
         </div>
     )
