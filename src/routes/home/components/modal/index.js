@@ -8,11 +8,12 @@ const { notifyError, notifySuccess } = useAppStore.getState()
 
 const INSERT_GROUP = 'mutation($input: GroupInput!) { saveGroup(input: $input) { id } }'
 
-const Modal = ({ showModal }) => {
+const Modal = ({ hideModal }) => {
+    const [{ fetching }, insertGroup] = useMutation(INSERT_GROUP)
+
     const [title, setTitle] = useState()
     const [description, setDescription] = useState()
     const [areaOfInterest, setAreaOfInterest] = useState()
-    const [{ fetching }, insertGroup] = useMutation(INSERT_GROUP)
 
     const handleSelectOpt = (e) => setAreaOfInterest(e.target.options[e.target.selectedIndex].text)
 
@@ -21,7 +22,7 @@ const Modal = ({ showModal }) => {
         insertGroup({ input: { title, description, areaOfInterest } }).then(({ data, error }) => {
             if (data) {
                 notifySuccess(`The ${title} group was successfully created.`)
-                showModal(false)
+                hideModal()
             } else if (error) {
                 if (error.networkError) {
                     notifyError(error.networkError.message)
@@ -40,7 +41,7 @@ const Modal = ({ showModal }) => {
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Create new group</h5>
-                        <button class="btn-close" type="button" onClick={() => showModal(false)} />
+                        <button class="btn-close" type="button" onClick={hideModal} />
                     </div>
                     <div class="modal-body">
                         <form onSubmit={handleCreateGroup}>
