@@ -1,6 +1,7 @@
 import { useEffect, useMemo } from 'preact/hooks'
 import { useQuery } from '@urql/preact'
 
+import { handleGraphQlError } from '../../utils'
 import LoadingSpinner from '../../components/loading'
 import MyGroupList from '../../components/mygrouplist'
 

@@ -1,13 +1,12 @@
 import { useEffect } from 'preact/hooks'
 import { useQuery } from '@urql/preact'
 
-import useAppStore from '../../stores/application'
+import { handleGraphQlError } from '../../utils'
 import Description from './components/description'
 import MembersList from './components/memberlist'
 import MeetingsTable from './components/meetingstable'
 import LoadingSpinner from '../../components/loading'
 
-const { notifyError } = useAppStore.getState()
 
 const GROUP_ID =
     'query($id: ID!) { groupById(id: $id) { title, areaOfInterest, description, owner { id }, members { id, firstName, lastName }, meetings { id, name, dateTime, location, type } } }'

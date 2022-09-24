@@ -1,5 +1,6 @@
 import { useEffect } from 'preact/hooks'
 import { useQuery } from '@urql/preact'
+import { handleGraphQlError } from '../utils'
 
 import GroupCard from './groupcard'
 import LoadingSpinner from './loading'
