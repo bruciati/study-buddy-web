@@ -1,7 +1,6 @@
 import { useState } from 'preact/hooks'
 import { useMutation } from '@urql/preact'
 import useAppStore from '../../../../stores/application'
-import { handleGraphQlError } from '../../../../utils'
 
 import style from './style.scss'
 
@@ -16,7 +15,7 @@ const Modal = ({ hideModal }) => {
     const [description, setDescription] = useState()
     const [areaOfInterest, setAreaOfInterest] = useState()
 
-    const handleSelectOpt = (e) => setAreaOfInterest(e.target.options[e.target.selectedIndex].text)
+    const handleSelect = (e) => setAreaOfInterest(e.target.options[e.target.selectedIndex].text)
 
     const handleCreateGroup = (e) => {
         e.preventDefault()
@@ -24,8 +23,6 @@ const Modal = ({ hideModal }) => {
             if (data) {
                 notifySuccess(`The ${title} group was successfully created.`)
                 hideModal()
-            } else if (error) {
-                handleGraphQlError(error)
             }
         })
     }
@@ -58,7 +55,7 @@ const Modal = ({ hideModal }) => {
                                 <label for="group-aoi" class="form-label">
                                     Area of interest
                                 </label>
-                                <select id="group-aoi" class="form-select" required onChange={handleSelectOpt}>
+                                <select id="group-aoi" class="form-select" required onChange={handleSelect}>
                                     <option selected>Miscellaneous</option>
                                     <option value="1">Architecture</option>
                                     <option value="2">Biology</option>

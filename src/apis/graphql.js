@@ -1,8 +1,8 @@
-import { createClient, cacheExchange, dedupExchange, fetchExchange, makeOperation } from '@urql/preact'
+import { createClient, cacheExchange, dedupExchange, errorExchange, fetchExchange, makeOperation } from '@urql/preact'
 import { authExchange } from '@urql/exchange-auth'
 
-import { getAuth, didAuthError } from '../controllers/graphql'
 import { SERVER_BASEURL } from '../constants'
+import { getAuth, didAuthError, onError } from '../controllers/graphql'
 
 // Applies an auth state to each request
 const addAuthToOperation = ({ authState, operation }) => {
@@ -30,6 +30,9 @@ const GraphQlClient = createClient({
     exchanges: [
         dedupExchange,
         cacheExchange,
+        errorExchange({
+            onError,
+        }),
         authExchange({
             getAuth,
             addAuthToOperation,

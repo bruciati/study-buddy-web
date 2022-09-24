@@ -1,7 +1,6 @@
-import { useEffect } from 'preact/hooks'
+import { useState } from 'preact/hooks'
 import { useQuery } from '@urql/preact'
 
-import { handleGraphQlError } from '../../utils'
 import Description from './components/description'
 import MembersList from './components/memberlist'
 import MeetingsTable from './components/meetingstable'
@@ -12,8 +11,9 @@ const GROUP_ID =
     'query($id: ID!) { groupById(id: $id) { title, areaOfInterest, description, owner { id }, members { id, firstName, lastName }, meetings { id, name, dateTime, location, type } } }'
 
 const Group = ({ id }) => {
-    const [{ fetching, data, error }] = useQuery({ query: GROUP_ID, variables: { id } })
-    useEffect(() => error && handleGraphQlError(error), [error])
+    const [modal, setModal] = useState(false)
+
+    const [{ fetching, data }] = useQuery({ query: GROUP_ID, variables: { id } })
 
     if (!fetching && data) {
         const { title, areaOfInterest, description, owner, members, meetings } = data.groupById

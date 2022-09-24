@@ -1,7 +1,6 @@
-import { useEffect, useMemo } from 'preact/hooks'
+import { useMemo } from 'preact/hooks'
 import { useQuery } from '@urql/preact'
 
-import { handleGraphQlError } from '../../utils'
 import LoadingSpinner from '../../components/loading'
 import MyGroupList from '../../components/mygrouplist'
 
@@ -10,8 +9,7 @@ import style from './style.scss'
 const ME = 'query { me { firstName lastName } }'
 
 const Profile = () => {
-    const [{ fetching, data, error }] = useQuery({ query: ME })
-    useEffect(() => error && handleGraphQlError(error), [error])
+    const [{ fetching, data }] = useQuery({ query: ME })
 
     if (!fetching && data) {
         const fullName = useMemo(() => 

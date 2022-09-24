@@ -3,6 +3,9 @@ import { route } from 'preact-router'
 import useSessionStore from '../stores/session'
 import { doRefresh, doLogout } from './auth'
 
+import useAppStore from '../stores/application'
+const { notifyError } = useAppStore.getState()
+
 //
 export const getAuth = async ({ authState }) => {
     // First access token warmup
@@ -43,4 +46,15 @@ export const didAuthError = ({ authState, error }) => {
     }
 
     return false
+}
+
+//
+export const onError = ({ networkError, graphQLErrors }/*, operation */) => {
+    if (networkError) {
+        notifyError(networkError.message)
+    }
+
+    if (graphQLErrors) {
+        graphQLErrors.forEach((e) => notifyError(e.message))
+    }
 }
