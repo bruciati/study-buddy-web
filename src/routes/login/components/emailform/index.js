@@ -1,15 +1,9 @@
 import { useState } from 'preact/hooks'
+
 import TextInput from './textinput'
-import LoginBtn from './loginbtn'
 import style from './style.scss'
 
-const EmailForm = ({
-    isRegister,
-    isLoading,
-    rememberState: [remember, setRemember],
-    handleLogin,
-    handleRegistration,
-}) => {
+const EmailForm = ({ isRegister, isLoading, rememberState: [remember, setRemember], handleLogin, handleRegistration }) => {
     const emailState = useState()
     const passwordState = useState()
     const firstNameState = useState()
@@ -29,41 +23,18 @@ const EmailForm = ({
     return (
         <form onSubmit={onFormSubmit}>
             {/* Email textinput */}
-            <TextInput
-                type="email"
-                required 
-                className="mb-3"
-                label="Email Address"
-                state={emailState}
-            />
+            <TextInput type="email" required className="mb-3" label="Email Address" state={emailState} />
 
             {/* Firstname & Lastname textinputs */}
             {isRegister && (
                 <>
-                    <TextInput
-                        type="text"
-                        required
-                        className="mb-3"
-                        label="Firstname"
-                        state={firstNameState}
-                    />
-                    <TextInput
-                        type="text"
-                        className="mb-3"
-                        label="Lastname"
-                        state={lastNameState}
-                    />
+                    <TextInput type="text" required className="mb-3" label="Firstname" state={firstNameState} />
+                    <TextInput type="text" className="mb-3" label="Lastname" state={lastNameState} />
                 </>
             )}
 
             {/* Password textinput */}
-            <TextInput
-                type="password"
-                required
-                className="mb-3"
-                label="Password"
-                state={passwordState}
-            />
+            <TextInput type="password" required className="mb-3" label="Password" state={passwordState} />
 
             {isRegister || (
                 <div class="d-flex flex-column ps-1">
@@ -76,10 +47,7 @@ const EmailForm = ({
                             checked={remember}
                             onChange={() => setRemember(!remember)}
                         />
-                        <label
-                            for="rememberme"
-                            class={`form-check-label ${style.rememberlabel}`}
-                        >
+                        <label for="rememberme" class={`form-check-label ${style.rememberlabel}`}>
                             Remember me
                         </label>
                     </div>
@@ -90,7 +58,10 @@ const EmailForm = ({
             )}
 
             {/* Login button */}
-            <LoginBtn isRegister={isRegister} isLoading={isLoading} />
+            <button class="btn btn-lg btn-secondary mt-3 w-100" type="submit" disabled={isLoading}>
+                {isLoading && <i class="fa fa-refresh fa-spin" style={{ marginRight: '5px' }} />}
+                {isRegister ? 'Register' : 'Login'}
+            </button>
         </form>
     )
 }
