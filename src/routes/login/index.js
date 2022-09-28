@@ -7,7 +7,6 @@ import style from './style.scss'
 
 import EmailForm from './components/emailform'
 import FacebookForm from './components/facebookform'
-import RegisterSwitch from './components/registerswitch'
 
 const { notifyError } = useAppStore.getState()
 
@@ -29,8 +28,8 @@ const handleLogin = (setLoading) => (body) => {
 
 const Login = () => {
     const rememberState = useState(false)
-    const [isLoading, setLoading] = useState(false)
-    const [isRegister, setRegister] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const [register, setRegister] = useState(false)
 
     return (
         <div class="row flex-grow-1">
@@ -38,23 +37,23 @@ const Login = () => {
                 <div>
                     {/* Header */}
                     <img src="/assets/img/login.svg" class={style.loginhero} alt="Login" />
-                    <h1 class="text-center my-4">{isRegister ? 'Register' : 'Sign In'}</h1>
+                    <h1 class="text-center my-4">{register ? 'Register' : 'Sign In'}</h1>
 
                     {/* Email login/register form */}
                     <EmailForm
-                        isLoading={isLoading}
-                        isRegister={isRegister}
+                        isLoading={loading}
+                        isRegister={register}
                         rememberState={rememberState}
                         handleLogin={handleLogin(setLoading)}
                         handleRegistration={handleRegistration(setLoading)}
                     />
 
                     {/* Facebook login form */}
-                    {isRegister || (
+                    {register || (
                         <>
                             <span class={`${style.divider} my-3`}>OR</span>
                             <FacebookForm
-                                isLoading={isLoading}
+                                isLoading={loading}
                                 onSuccess={handleLogin(setLoading)}
                                 onFail={(e) => notifyError(e.message)}
                             />
@@ -63,7 +62,19 @@ const Login = () => {
 
                     {/* Register switch */}
                     <div class="d-flex justify-content-center mt-3">
-                        <RegisterSwitch isRegister={isRegister} setRegister={setRegister} />
+                        <div class="form-check form-switch">
+                            <input
+                                id="register-switch"
+                                class="form-check-input"
+                                type="checkbox"
+                                role="switch"
+                                checked={register}
+                                onChange={() => setRegister(!register)}
+                            />
+                            <label class="form-check-label" for="register-switch">
+                                Register
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
