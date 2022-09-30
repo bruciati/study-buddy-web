@@ -1,27 +1,8 @@
-import { createClient, cacheExchange, dedupExchange, errorExchange, fetchExchange, makeOperation } from '@urql/preact'
+import { createClient, cacheExchange, dedupExchange, errorExchange, fetchExchange } from '@urql/preact'
 import { authExchange } from '@urql/exchange-auth'
 
 import { SERVER_BASEURL } from '../constants'
-import { getAuth, didAuthError, onError } from '../controllers/graphql'
-
-// Applies an auth state to each request
-const addAuthToOperation = ({ authState, operation }) => {
-    if (!authState || !authState.token) {
-        return operation
-    }
-
-    return makeOperation(operation.kind, operation, {
-        ...operation.context,
-        fetchOptions: {
-            headers: {
-                Authorization: `Bearer ${authState.token}`,
-            },
-        },
-    })
-}
-
-// Triggers the logic in `getAuth` without the need to send a request.
-const willAuthError = ({ authState }) => !authState || !authState.token
+import { addAuthToOperation, getAuth, didAuthError, onError } from '../controllers/graphql'
 
 // Graphql Client instance
 const GraphQlClient = createClient({
@@ -34,10 +15,9 @@ const GraphQlClient = createClient({
             onError,
         }),
         authExchange({
-            getAuth,
             addAuthToOperation,
             didAuthError,
-            willAuthError,
+            getAuth,
         }),
         fetchExchange,
     ],
