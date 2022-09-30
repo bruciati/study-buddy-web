@@ -26,7 +26,7 @@ export const addAuthToOperation = ({ authState, operation }) => {
 
 //
 export const getAuth = async ({ authState }) => {
-    // First 
+    // First function call
     if (!authState) {
         const { accessToken } = useSessionStore.getState()
         return { error: !accessToken }
@@ -62,7 +62,7 @@ export const didAuthError = ({ authState, error }) => {
 }
 
 //
-export const onError = ({ networkError, graphQLErrors }/*, operation */) => {
+export const onError = ({ networkError, graphQLErrors } /*, operation */) => {
     if (networkError) {
         notifyError(networkError.message)
     }
